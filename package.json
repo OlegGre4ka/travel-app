@@ -3,15 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "concurrently": "^4.1.2",
+    "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-icons": "^3.7.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "reactstrap": "^8.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server --watch db.json --port 4000",
+    "dev": "concurrently --kill-others \"npm run start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": "react-app"

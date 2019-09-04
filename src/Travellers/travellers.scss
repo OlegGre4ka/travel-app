@@ -1,0 +1,20 @@
+.Travellers{
+    .SearchRow{
+        margin-left:15px;
+        margin-right: 15px;
+        padding:20px 20px;
+    }
+    .Row{
+        margin-left:15px;
+        margin-right: 15px;
+        .Col-4{
+            .Card{
+                .CardBody{
+                    .CardText{
+                        text-align:left
+                    }
+                }
+            }
+        }
+    }
+}
