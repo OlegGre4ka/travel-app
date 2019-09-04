@@ -8,6 +8,9 @@ import {
 import { FaSistrix } from "react-icons/fa";
 
 const SearchFromComponent = props => {
+    // if(props.InputFrom.blur()){
+    //     props.searchWordFrom = ''   
+    // }
     return (
         <div className="SearchFromComponent">
             Search by place of departure:
@@ -15,9 +18,12 @@ const SearchFromComponent = props => {
                 <Input
                     type="text"
                     placeholder="Search..."
-                    value={props.searchWord}
+                    value={props.searchWordFrom}
                     onChange={props.changedFrom}
-                    onKeyPress={props.changedFrom}
+                    // onKeyPress={props.changedFrom}
+                    // ref={input => {
+                    //     props.InputFrom = input}}
+                    onBlur={props.handleBlur}
                 />
                 <InputGroupText
                 >

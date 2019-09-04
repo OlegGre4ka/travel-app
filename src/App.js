@@ -23,10 +23,11 @@ class App extends Component {
           <Switch>
             <Route
               exact
-              path="/travellers"
+              path="/"
               render={() => <Travellers />}
             />
-            <Route path="/contacts" component={Contacts} />
+             <Route 
+              path="/contacts" component={Contacts} />
           </Switch>
         </main>
         <footer >

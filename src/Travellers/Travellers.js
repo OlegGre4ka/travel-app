@@ -14,10 +14,11 @@ class Travellers extends Component {
         super(props);
         this.state = {
             travellers: [],
-            CopyTravellers:[],
+            CopyTravellers: [],
             message: false,
             spinner: true,
-            searchWord: ''
+            searchWordFrom: '',
+            searchWordTo: '',
         };
     }
 
@@ -25,45 +26,71 @@ class Travellers extends Component {
         this.gettingListTravellers();
 
     }
-
     onSearchFromInputChange = event => {
+    
         this.setState({
-            searchWord: event.target.value
+            searchWordFrom: event.target.value
         }, () => {
-            this.setState({ searchWord: this.state.searchWord });
+            this.setState({ searchWordFrom: this.state.searchWordFrom });
+
+            const searchFrom = this.state.CopyTravellers.filter(item => {
+                return item.fromName.toLowerCase().includes(this.state.searchWordFrom.trim().toLowerCase())
+            });
+
+            if (searchFrom.length === 0) {
+                this.setState({
+                    message: true,
+                    travellers: searchFrom,
+                    searchWordFrom: ''
+                });
+                setTimeout(
+                    () => {
+                        this.setState({
+                            message: false,
+                            travellers: this.state.CopyTravellers,
+                        });
+                    }, 2500
+                )
+            } else {
+                this.setState({
+                    travellers: searchFrom
+                })
+            }
         })
 
-        const searchFrom = this.state.travellers.filter(item => {
-            return item.fromName.toLowerCase().includes(this.state.searchWord.trim().toLowerCase())
-        });
+    }
 
-        if (searchFrom.length === 0) {
-            this.setState({
-                message: true,
-                travellers: searchFrom
+      onSearchToInputChange = event => {
+    
+        this.setState({
+            searchWordTo: event.target.value
+        }, () => {
+            this.setState({ searchWordTo: this.state.searchWordTo });
+
+            const searchTo = this.state.CopyTravellers.filter(item => {
+                return item.toName.toLowerCase().includes(this.state.searchWordTo.trim().toLowerCase())
             });
-            setTimeout(
-                () => {
-                    this.setState({
-                        message: false,
-                        travellers: this.state.CopyTravellers
-                    });
-                }, 3000
-            )
-        } else {
-            this.setState({
-                travellers: searchFrom
-            })
-        }
 
-        console.log(this.state.travellers, 'newArray-SearchFrom');
-
-        if (event.key === "Enter") {
-            this.setState({
-                searchWord: ''
-            })
-        }
-
+            if (searchTo.length === 0) {
+                this.setState({
+                    message: true,
+                    travellers: searchTo,
+                    searchWordTo: ''
+                });
+                setTimeout(
+                    () => {
+                        this.setState({
+                            message: false,
+                            travellers: this.state.CopyTravellers,
+                        });
+                    }, 2500
+                )
+            } else {
+                this.setState({
+                    travellers: searchTo
+                })
+            }
+        })
     }
 
     async gettingListTravellers() {
@@ -74,21 +101,36 @@ class Travellers extends Component {
         console.log(data, 'data from json0server');
         this.setState({
             travellers: data,
-            CopyTravellers:data,
+            CopyTravellers: data,
             spinner: false
         });
 
     }
+
+    handerBlur =()=>{
+        this.setState({
+            searchWordFrom: '',
+            searchWordTo: '',
+            travellers: this.state.CopyTravellers,
+        });
+    }
+
     render() {
         return (
             <div className="Travellers">
                 <h1><i>Travellers</i></h1>
                 <div className="SearchRow row">
                     <div className="col-6">
-                        <SearchFromComponent searchWord={this.state.searchWord} changedFrom={this.onSearchFromInputChange} />
+                        <SearchFromComponent 
+                        handleBlur = {this.handerBlur}
+                        searchWordFrom={this.state.searchWordFrom} 
+                        changedFrom={this.onSearchFromInputChange} />
                     </div>
                     <div className="col-6">
-                        <SearchToComponent />
+                        <SearchToComponent 
+                        handleBlur = {this.handerBlur}
+                        searchWordTo={this.state.searchWordTo} 
+                        changedTo={this.onSearchToInputChange} />
                     </div>
                 </div>
 

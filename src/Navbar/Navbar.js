@@ -8,10 +8,6 @@ import {
     Nav,
     NavItem,
     NavLink,
-    //   UncontrolledDropdown,
-    //   DropdownToggle,
-    //   DropdownMenu,
-    //   DropdownItem 
 } from 'reactstrap';
 import {
     NavLink as RRNavLink,
@@ -43,7 +39,7 @@ export default class NavbarMenu extends React.Component {
                                 <NavLink className="ItemLink"
                                     tag={RRNavLink}
                                     activeStyle={{ color: "yellow" }}
-                                    to="/travellers">Travellers</NavLink>
+                                    to="/">Travellers</NavLink>
                             </NavItem>
                             <NavItem className="NavItem">
                                 <NavLink className="ItemLink"
@@ -51,26 +47,6 @@ export default class NavbarMenu extends React.Component {
                                     activeStyle={{ color: "yellow" }}
                                     to="/contacts">Contacts</NavLink>
                             </NavItem>
-                            {/* <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-              </NavItem> */}
-                            {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
                         </Nav>
                     </Collapse>
                 </Navbar>
