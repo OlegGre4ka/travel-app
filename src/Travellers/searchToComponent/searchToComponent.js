@@ -18,8 +18,6 @@ class SearchToComponent extends Component {
     }
 
     render() {
-        console.log(this.props.searchWordTo, 'from Reducer');
-
         return (
             <div className="SearchToComponent">
                 <p style={{ color: 'orangered', fontSize: "18px" }}>Search at the place of arrival:</p>
