@@ -4,6 +4,16 @@
         margin-right: 15px;
         padding:20px 20px;
     }
+    .ArrowBack{
+        color:orangered;
+        margin-top:20px;
+        margin-left:50px;
+        text-align:left;
+        font-size:26px;
+        &:hover{
+            cursor:pointer;
+        }
+    }
     .Row{
         margin-left:15px;
         margin-right: 15px;

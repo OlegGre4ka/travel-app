@@ -6,6 +6,8 @@ import {
     CardBody,
     CardText
 } from 'reactstrap';
+import { FaLongArrowAltLeft } from "react-icons/fa";
+
 import { Alert } from 'reactstrap';
 import SearchFromComponent from './searchFromComponent/searchFromComponent';
 import SearchToComponent from './searchToComponent/searchToComponent';
@@ -22,6 +24,7 @@ class Travellers extends Component {
             spinner: true,
             searchWordFrom: '',
             // searchWordTo: '',
+            arrowBack:false
         };
     }
 
@@ -35,12 +38,12 @@ class Travellers extends Component {
             searchWordFrom: event.target.value
         }, () => {
             this.setState({ searchWordFrom: this.state.searchWordFrom });
-
+console.log(this.state.searchWordFrom ,'searchWord');
             const searchFrom = this.state.travellers.filter(item => {
                 return item.fromName.toLowerCase().includes(this.state.searchWordFrom.trim().toLowerCase())
             });
 
-            if (searchFrom.length === 0) {
+            if (searchFrom.length === 0 ) {
                 this.setState({
                     message: true,
                     travellers: searchFrom,
@@ -56,7 +59,8 @@ class Travellers extends Component {
                 )
             } else {
                 this.setState({
-                    travellers: searchFrom
+                    travellers: searchFrom,
+                    arrowBack:true
                 })
             }
         })
@@ -121,7 +125,8 @@ class Travellers extends Component {
                 this.props.updateSearchWordTo('');
             } else {
                 this.setState({
-                    travellers: searchTo
+                    travellers: searchTo,
+                    arrowBack:true
                 })
             }
         }
@@ -139,7 +144,14 @@ class Travellers extends Component {
         });
 
     }
-
+    arrowBackHandler =()=>{
+        if( this.state.travellers.length===this.state.CopyTravellers.length){
+            this.setState({
+                arrowBack:false,
+                travellers:this.state.CopyTravellers
+            }) 
+        }     
+    }
     handerBlur = () => {
         this.props.updateSearchWordTo('');
 
@@ -169,7 +181,11 @@ class Travellers extends Component {
 
                 {this.state.spinner && <Spinner color="success" style={{ width: '5rem', height: '5rem', marginTop: '8rem' }} />}
 
+            {this.state.arrowBack&&<div title="Back!" className="ArrowBack"> 
+             <FaLongArrowAltLeft onClick={this.arrowBackHandler}/></div>}
+
                 <div className="Row row" style={{ padding: '10px' }}>
+
                     {this.state.message && <Alert style={{ color: 'red', fontSize: '24px', margin: 'auto' }}>According to the entered data there is no place of departure!</Alert>}
                     {this.state.travellers.map((traveller, i) => (
                         <div key={i} className="col-md-4"  >
