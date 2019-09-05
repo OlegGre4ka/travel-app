@@ -1,3 +1,14 @@
+Startup Instructions for Travel App
+
+To start a project you need to install packages:
+1.npm install -g json-server
+2.npm install -g concurrently
+and
+3.npm i
+After it:
+4. npm run dev
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

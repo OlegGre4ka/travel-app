@@ -1,9 +1,7 @@
 import React from 'react';
 import './navbar.scss';
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
@@ -13,27 +11,11 @@ import {
     NavLink as RRNavLink,
 } from "react-router-dom";
 
-export default class NavbarMenu extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-    render() {
+    const NavbarMenu= ()=>{
         return (
             <div>
                 <Navbar className="NavbarMenu" color="" light expand="md">
-                    <NavbarBrand className="Brand" href="/">TravelApp</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle} />
-                    <Collapse className="Collapse" isOpen={this.state.isOpen} navbar>
+                    <NavbarBrand className="Brand">TravelApp</NavbarBrand>
                         <Nav className="Nav ml-auto" navbar>
                             <NavItem className="NavItem">
                                 <NavLink className="ItemLink"
@@ -49,9 +31,9 @@ export default class NavbarMenu extends React.Component {
                                     to="/contacts">Contacts</NavLink>
                             </NavItem>
                         </Nav>
-                    </Collapse>
                 </Navbar>
             </div>
         );
     }
-}
+
+export default  NavbarMenu

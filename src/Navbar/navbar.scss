@@ -1,10 +1,8 @@
 .NavbarMenu {
-  // background-color: rgb(7, 65, 133);
   background-color: rgb(13, 99, 197);
   .Brand {
-    color: rgb(201, 240, 26);
+    color: rgb(201, 240, 26)!important;
   }
-  .Collapse {
     .Nav {
       .NavItem {
         .ItemLink {
@@ -13,5 +11,4 @@
         }
       }
     }
-  }
 }

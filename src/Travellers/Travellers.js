@@ -6,8 +6,11 @@ import {
     CardBody,
     CardText
 } from 'reactstrap';
+import { Alert } from 'reactstrap';
 import SearchFromComponent from './searchFromComponent/searchFromComponent';
 import SearchToComponent from './searchToComponent/searchToComponent';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class Travellers extends Component {
     constructor(props) {
@@ -18,22 +21,22 @@ class Travellers extends Component {
             message: false,
             spinner: true,
             searchWordFrom: '',
-            searchWordTo: '',
+            // searchWordTo: '',
         };
     }
 
     componentDidMount() {
         this.gettingListTravellers();
-
     }
+
     onSearchFromInputChange = event => {
-    
+
         this.setState({
             searchWordFrom: event.target.value
         }, () => {
             this.setState({ searchWordFrom: this.state.searchWordFrom });
 
-            const searchFrom = this.state.CopyTravellers.filter(item => {
+            const searchFrom = this.state.travellers.filter(item => {
                 return item.fromName.toLowerCase().includes(this.state.searchWordFrom.trim().toLowerCase())
             });
 
@@ -49,7 +52,7 @@ class Travellers extends Component {
                             message: false,
                             travellers: this.state.CopyTravellers,
                         });
-                    }, 2500
+                    }, 2700
                 )
             } else {
                 this.setState({
@@ -59,38 +62,69 @@ class Travellers extends Component {
         })
 
     }
+    // Метод котрый можна передвать как ссылку через props при испольщовании searchToComponent.js как функционального
+    //   onSearchToInputChange = event => {
 
-      onSearchToInputChange = event => {
-    
-        this.setState({
-            searchWordTo: event.target.value
-        }, () => {
-            this.setState({ searchWordTo: this.state.searchWordTo });
+    //     this.setState({
+    //         searchWordTo: event.target.value
+    //     }, () => {
+    //         this.setState({ searchWordTo: this.state.searchWordTo });
 
-            const searchTo = this.state.CopyTravellers.filter(item => {
-                return item.toName.toLowerCase().includes(this.state.searchWordTo.trim().toLowerCase())
+    //         const searchTo = this.state.CopyTravellers.filter(item => {
+    //             return item.toName.toLowerCase().includes(this.state.searchWordTo.trim().toLowerCase())
+    //         });
+
+    //         if (searchTo.length === 0) {
+    //             this.setState({
+    //                 message: true,
+    //                 travellers: searchTo,
+    //                 searchWordTo: ''
+    //             });
+    //             setTimeout(
+    //                 () => {
+    //                     this.setState({
+    //                         message: false,
+    //                         travellers: this.state.CopyTravellers,
+    //                     });
+    //                 }, 2500
+    //             )
+    //         } else {
+    //             this.setState({
+    //                 travellers: searchTo
+    //             })
+    //         }
+    //     })
+    // }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.searchWordTo !== this.props.searchWordTo) {
+
+            const searchTo = this.state.travellers.filter(item => {
+                return item.toName.toLowerCase().includes(this.props.searchWordTo.trim().toLowerCase())
             });
 
             if (searchTo.length === 0) {
+
                 this.setState({
                     message: true,
                     travellers: searchTo,
-                    searchWordTo: ''
                 });
+
                 setTimeout(
                     () => {
                         this.setState({
                             message: false,
                             travellers: this.state.CopyTravellers,
                         });
-                    }, 2500
+                    }, 2700
                 )
+                this.props.updateSearchWordTo('');
             } else {
                 this.setState({
                     travellers: searchTo
                 })
             }
-        })
+        }
     }
 
     async gettingListTravellers() {
@@ -98,7 +132,6 @@ class Travellers extends Component {
             'http://localhost:4000/travellers'
         );
         const data = await response.json();
-        console.log(data, 'data from json0server');
         this.setState({
             travellers: data,
             CopyTravellers: data,
@@ -107,10 +140,11 @@ class Travellers extends Component {
 
     }
 
-    handerBlur =()=>{
+    handerBlur = () => {
+        this.props.updateSearchWordTo('');
+
         this.setState({
             searchWordFrom: '',
-            searchWordTo: '',
             travellers: this.state.CopyTravellers,
         });
     }
@@ -121,23 +155,22 @@ class Travellers extends Component {
                 <h1><i>Travellers</i></h1>
                 <div className="SearchRow row">
                     <div className="col-md-6">
-                        <SearchFromComponent 
-                        handleBlur = {this.handerBlur}
-                        searchWordFrom={this.state.searchWordFrom} 
-                        changedFrom={this.onSearchFromInputChange} />
+                        <SearchFromComponent
+                            handleBlur={this.handerBlur}
+                            searchWordFrom={this.state.searchWordFrom}
+                            changedFrom={this.onSearchFromInputChange} />
                     </div>
                     <div className="col-md-6">
-                        <SearchToComponent 
-                        handleBlur = {this.handerBlur}
-                        searchWordTo={this.state.searchWordTo} 
-                        changedTo={this.onSearchToInputChange} />
+                        <SearchToComponent
+                            handleBlur={this.handerBlur}
+                        />
                     </div>
                 </div>
 
                 {this.state.spinner && <Spinner color="success" style={{ width: '5rem', height: '5rem', marginTop: '8rem' }} />}
 
                 <div className="Row row" style={{ padding: '10px' }}>
-                    {this.state.message && <p style={{ color: 'red', fontSize: '24px', margin: 'auto' }}>According to the entered data there is no place of departure!</p>}
+                    {this.state.message && <Alert style={{ color: 'red', fontSize: '24px', margin: 'auto' }}>According to the entered data there is no place of departure!</Alert>}
                     {this.state.travellers.map((traveller, i) => (
                         <div key={i} className="col-md-4"  >
 
@@ -157,4 +190,17 @@ class Travellers extends Component {
         )
     }
 }
-export default Travellers
+const mapStateToProps = state => {
+    return {
+        searchWordTo: state.searchToReducer.searchWordTo
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        updateSearchWordTo: searchWordTo => {
+            dispatch({ type: "UPDATE_SEARCHED_WORD_TO", payload: searchWordTo });
+        }
+
+    };
+};
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Travellers))

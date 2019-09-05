@@ -1,7 +1,10 @@
-.Contacts{
-    .Row{
-        display: flex;
-        justify-content: center;
-      
-    }
+.Contacts {
+  .Subtitle {
+    color: orangered;
+    font-size: 20px;
+  }
+  .Row {
+    display: flex;
+    justify-content: center;
+  }
 }
