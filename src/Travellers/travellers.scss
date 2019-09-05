@@ -11,7 +11,10 @@
             .Card{
                 .CardBody{
                     .CardText{
-                        text-align:left
+                        text-align:left;
+                        // &:last-child{
+                        //     margin-bottom: 20px
+                        // }
                     }
                 }
             }

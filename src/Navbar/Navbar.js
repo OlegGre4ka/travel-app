@@ -38,6 +38,7 @@ export default class NavbarMenu extends React.Component {
                             <NavItem className="NavItem">
                                 <NavLink className="ItemLink"
                                     tag={RRNavLink}
+                                    exact
                                     activeStyle={{ color: "yellow" }}
                                     to="/">Travellers</NavLink>
                             </NavItem>

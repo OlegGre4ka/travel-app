@@ -120,13 +120,13 @@ class Travellers extends Component {
             <div className="Travellers">
                 <h1><i>Travellers</i></h1>
                 <div className="SearchRow row">
-                    <div className="col-6">
+                    <div className="col-md-6">
                         <SearchFromComponent 
                         handleBlur = {this.handerBlur}
                         searchWordFrom={this.state.searchWordFrom} 
                         changedFrom={this.onSearchFromInputChange} />
                     </div>
-                    <div className="col-6">
+                    <div className="col-md-6">
                         <SearchToComponent 
                         handleBlur = {this.handerBlur}
                         searchWordTo={this.state.searchWordTo} 
@@ -139,7 +139,7 @@ class Travellers extends Component {
                 <div className="Row row" style={{ padding: '10px' }}>
                     {this.state.message && <p style={{ color: 'red', fontSize: '24px', margin: 'auto' }}>According to the entered data there is no place of departure!</p>}
                     {this.state.travellers.map((traveller, i) => (
-                        <div key={i} className="Col-4 col-md-4"  >
+                        <div key={i} className="col-md-4"  >
 
                             <Card className="Card" key={i} style={{ marginBottom: '10px' }} >
 

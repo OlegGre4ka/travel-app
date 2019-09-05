@@ -35,7 +35,7 @@ class App extends Component {
             <div>
               <span>OlegGre4ka&copy; 2019. TravelApp</span>
             </div>
-            <div>
+            <div style={{marginLeft:'15px',marginRight:'15px'}}>
               <a href="mailto:gre4kae@gmail.com" title="Email" target="_blank" rel="noopener noreferrer">
                 <FaEnvelope style={{ fontSize: '24px' }} /><span style={{ color: 'white' }}>gre4kae@gmail.com</span></a>
             </div>
