@@ -38,7 +38,6 @@ class Travellers extends Component {
             searchWordFrom: event.target.value
         }, () => {
             this.setState({ searchWordFrom: this.state.searchWordFrom });
-console.log(this.state.searchWordFrom ,'searchWord');
             const searchFrom = this.state.travellers.filter(item => {
                 return item.fromName.toLowerCase().includes(this.state.searchWordFrom.trim().toLowerCase())
             });

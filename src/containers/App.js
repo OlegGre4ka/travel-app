@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
-import Navbar from './Navbar/Navbar';
-import Travellers from './Travellers/Travellers';
-import Contacts from './Contacts/Contacts';
+import Navbar from '../components/Navbar/Navbar';
+import Travellers from '../components/Travellers/Travellers';
+import Contacts from '../components/Contacts/Contacts';
 import {
   Route,
   Switch
